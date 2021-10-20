@@ -3,7 +3,7 @@ package com.saqib.projecttaskmanagement.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 public class User {
 
     @Id
@@ -28,6 +28,9 @@ public class User {
 
     @Column(name = "status")
     private String status;
+
+    public User() {
+    }
 
     public User(Long id, String name, String username, String designation, String email, String password, String status) {
         this.id = id;
