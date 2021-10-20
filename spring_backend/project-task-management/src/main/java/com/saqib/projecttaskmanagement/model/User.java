@@ -1,6 +1,7 @@
 package com.saqib.projecttaskmanagement.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
@@ -29,10 +30,13 @@ public class User {
     @Column(name = "status")
     private String status;
 
+    @OneToMany(mappedBy = "user")
+    private Set<ProjectIntegrate> projectIntegrates;
+
     public User() {
     }
 
-    public User(Long id, String name, String username, String designation, String email, String password, String status) {
+    public User(Long id, String name, String username, String designation, String email, String password, String status, Set<ProjectIntegrate> projectIntegrates) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -40,6 +44,15 @@ public class User {
         this.email = email;
         this.password = password;
         this.status = status;
+        this.projectIntegrates = projectIntegrates;
+    }
+
+    public Set<ProjectIntegrate> getProjectIntegrates() {
+        return projectIntegrates;
+    }
+
+    public void setProjectIntegrates(Set<ProjectIntegrate> projectIntegrates) {
+        this.projectIntegrates = projectIntegrates;
     }
 
     public Long getId() {

@@ -31,7 +31,10 @@ public class Project {
     @OneToMany(mappedBy="project")
     private Set<ProjectDetails> projectDetailsSet;
 
-    public Project(Long id, String projectName, String projectSummery, int projectPercentage, Date projectCreateDate, Date projectDeadline, Set<ProjectDetails> projectDetailsSet) {
+    @OneToMany(mappedBy = "project")
+    private Set<ProjectIntegrate> projectIntegrates;
+
+    public Project(Long id, String projectName, String projectSummery, int projectPercentage, Date projectCreateDate, Date projectDeadline, Set<ProjectDetails> projectDetailsSet, Set<ProjectIntegrate> projectIntegrates) {
         this.id = id;
         this.projectName = projectName;
         this.projectSummery = projectSummery;
@@ -39,6 +42,15 @@ public class Project {
         this.projectCreateDate = projectCreateDate;
         this.projectDeadline = projectDeadline;
         this.projectDetailsSet = projectDetailsSet;
+        this.projectIntegrates = projectIntegrates;
+    }
+
+    public Set<ProjectIntegrate> getProjectIntegrates() {
+        return projectIntegrates;
+    }
+
+    public void setProjectIntegrates(Set<ProjectIntegrate> projectIntegrates) {
+        this.projectIntegrates = projectIntegrates;
     }
 
     public Set<ProjectDetails> getProjectDetailsSet() {
