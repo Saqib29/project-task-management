@@ -2,6 +2,7 @@ package com.saqib.projecttaskmanagement.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -27,13 +28,25 @@ public class Project {
     @Column(name = "project_deadline")
     private Date projectDeadline;
 
-    public Project(Long id, String projectName, String projectSummery, int projectPercentage, Date projectCreateDate, Date projectDeadline) {
+    @OneToMany(mappedBy="project")
+    private Set<ProjectDetails> projectDetailsSet;
+
+    public Project(Long id, String projectName, String projectSummery, int projectPercentage, Date projectCreateDate, Date projectDeadline, Set<ProjectDetails> projectDetailsSet) {
         this.id = id;
         this.projectName = projectName;
         this.projectSummery = projectSummery;
         this.projectPercentage = projectPercentage;
         this.projectCreateDate = projectCreateDate;
         this.projectDeadline = projectDeadline;
+        this.projectDetailsSet = projectDetailsSet;
+    }
+
+    public Set<ProjectDetails> getProjectDetailsSet() {
+        return projectDetailsSet;
+    }
+
+    public void setProjectDetailsSet(Set<ProjectDetails> projectDetailsSet) {
+        this.projectDetailsSet = projectDetailsSet;
     }
 
     public Long getId() {
