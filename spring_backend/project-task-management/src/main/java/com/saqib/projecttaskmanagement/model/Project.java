@@ -1,5 +1,7 @@
 package com.saqib.projecttaskmanagement.model;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -22,8 +24,14 @@ public class Project {
     @Column(name = "project_percentage")
     private int projectPercentage;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "project_create_date")
     private Date projectCreateDate;
+
+    @PrePersist
+    private void onCreate() {
+        projectCreateDate = new Date();
+    }
 
     @Column(name = "project_deadline")
     private Date projectDeadline;
@@ -33,6 +41,9 @@ public class Project {
 
     @OneToMany(mappedBy = "project")
     private Set<ProjectIntegrate> projectIntegrates;
+
+    public Project() {
+    }
 
     public Project(Long id, String projectName, String projectSummery, int projectPercentage, Date projectCreateDate, Date projectDeadline, Set<ProjectDetails> projectDetailsSet, Set<ProjectIntegrate> projectIntegrates) {
         this.id = id;

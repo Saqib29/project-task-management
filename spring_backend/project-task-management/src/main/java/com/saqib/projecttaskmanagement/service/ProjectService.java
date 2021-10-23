@@ -1,4 +1,8 @@
 package com.saqib.projecttaskmanagement.service;
 
-public interface ProjectService {
+import com.saqib.projecttaskmanagement.model.Project;
+import com.saqib.projecttaskmanagement.repository.ProjectRepository;
+
+public interface ProjectService extends ProjectRepository {
+    Project addProject(Project project);
 }
