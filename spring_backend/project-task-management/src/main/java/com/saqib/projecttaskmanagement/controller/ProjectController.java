@@ -22,4 +22,9 @@ public class ProjectController {
         Project addProject = projectService.addProject(project);
         return addProject;
     }
+
+    @PostMapping("/update")
+    public Project updateProject(@RequestBody Project project){
+        return projectService.updateProject(project);
+    }
 }
