@@ -1,5 +1,7 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -22,9 +24,11 @@ public class User {
     private String designation;
 
     @Column(name = "email")
+    @NotNull
     private String email;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
     @Column(name = "status")
