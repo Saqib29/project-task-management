@@ -15,5 +15,7 @@ public class UserServiceImpl {
     @Autowired
     private UserService userService;
 
-
+    public User updateUser(User user){
+        return userService.save(user);
+    }
 }
