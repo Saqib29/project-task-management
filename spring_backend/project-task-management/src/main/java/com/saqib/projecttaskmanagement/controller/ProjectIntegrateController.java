@@ -1,12 +1,11 @@
 package com.saqib.projecttaskmanagement.controller;
 
+import com.saqib.projecttaskmanagement.model.ProjectIntegrate;
 import com.saqib.projecttaskmanagement.model.User;
 import com.saqib.projecttaskmanagement.service.UserService;
+import com.saqib.projecttaskmanagement.service.service_implementation.ProjectIntegrateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,10 +14,17 @@ import java.util.List;
 public class ProjectIntegrateController {
 
     @Autowired
+    private ProjectIntegrateServiceImpl projectIntegrateServiceImpl;
+    @Autowired
     private UserService userService;
 
     @GetMapping("/all_users")
     public List<User> users(){
         return userService.findAll();
+    }
+
+    @PostMapping("/integrate_to_project")
+    private List<ProjectIntegrate> addUsersToProject(@RequestBody List<ProjectIntegrate> projectIntegrateList){
+        return projectIntegrateServiceImpl.addUsersToProject(projectIntegrateList);
     }
 }
