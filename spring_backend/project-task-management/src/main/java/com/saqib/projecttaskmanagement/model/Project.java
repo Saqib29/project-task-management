@@ -1,6 +1,8 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -42,6 +44,8 @@ public class Project {
     private Set<ProjectDetails> projectDetailsSet;
 
     @OneToMany(mappedBy = "project")
+    @JsonManagedReference(value = "project")
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Set<ProjectIntegrate> projectIntegrates;
 
     public Project() {

@@ -1,5 +1,7 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,16 +13,21 @@ public class ProjectIntegrate {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="project_id", nullable=false)
+    @JsonBackReference(value = "project")
     private Project project;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="user_id", nullable=false)
+    @JsonBackReference(value = "user")
     private User user;
 
     public Long getId() {
         return id;
+    }
+
+    public ProjectIntegrate() {
     }
 
     public void setId(Long id) {
@@ -47,5 +54,14 @@ public class ProjectIntegrate {
         this.id = id;
         this.project = project;
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectIntegrate{" +
+                "id=" + id +
+                ", project=" + project +
+                ", user=" + user +
+                '}';
     }
 }

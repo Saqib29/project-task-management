@@ -1,5 +1,6 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class User {
     private String status;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference(value = "user")
     private Set<ProjectIntegrate> projectIntegrates;
 
     public User() {
