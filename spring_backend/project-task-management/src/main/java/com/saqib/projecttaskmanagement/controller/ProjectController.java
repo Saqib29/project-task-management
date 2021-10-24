@@ -45,14 +45,17 @@ public class ProjectController {
     }
 
     @PostMapping("/getProjectDetails/{id}")
-    public List<ProjectDetails> getProjectById(@PathVariable Long id){
+    public SingleProjectView getProjectById(@PathVariable Long id){
 //        have to search project by id
 //        have to search projectDetails where project equal to project id
+        SingleProjectView singleProjectView = new SingleProjectView();
 
         Optional<Project> project = projectServiceImpl.getProjectById(id);
-        return projectDetailsService.findByProject(project);
-//        return projectDetailsService.findProjectDetailsByProjectId(project);
+        List<ProjectDetails> projectDetails = projectDetailsService.findByProject(project);
 
-//        return new SingleProjectView();
+        singleProjectView.setProject(project);
+        singleProjectView.setProjectDetailsList(projectDetails);
+
+        return singleProjectView;
     }
 }
