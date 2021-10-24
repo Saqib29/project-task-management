@@ -1,5 +1,6 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class Project {
     private Date projectDeadline;
 
     @OneToMany(mappedBy="project")
+    @JsonManagedReference
     private Set<ProjectDetails> projectDetailsSet;
 
     @OneToMany(mappedBy = "project")

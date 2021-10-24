@@ -1,5 +1,9 @@
 package com.saqib.projecttaskmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,8 +15,11 @@ public class ProjectDetails {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name="project_id", nullable=false)
+//    @JsonIgnore
+//    @JsonIgnoreProperties("project")
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name="project_id", nullable=true)
+    @JsonBackReference
     private Project project;
 
     @Column(name = "project_task")
@@ -29,6 +36,7 @@ public class ProjectDetails {
 
     @Column(name = "updated_by")
     private String updatedBy;
+
 
     public ProjectDetails(Long id, Project project, String projectTask, String status, String addedBy, String deletedBy, String updatedBy) {
         this.id = id;
