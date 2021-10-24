@@ -19,8 +19,5 @@ public class UserController {
         return userService.updateUser(user);
     }
 
-    @GetMapping("/all_users")
-    public String getAllUsers(){
-        return "get all users";
-    }
+
 }

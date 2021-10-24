@@ -17,13 +17,7 @@ public class RegistrationController {
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user){
-        User saveUser = registerService.registerUser(user);
-        System.out.println(saveUser);
-        return saveUser;
-//        return user;
+        return registerService.registerUser(user);
     }
 
-    public String register(@RequestBody User user){
-        return "registered";
-    }
 }
