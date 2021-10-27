@@ -1,10 +1,12 @@
 package com.saqib.projecttaskmanagement.service.service_implementation;
 
+import com.saqib.projecttaskmanagement.formclasses.GetDevelopers;
 import com.saqib.projecttaskmanagement.model.Project;
 import com.saqib.projecttaskmanagement.model.ProjectIntegrate;
 import com.saqib.projecttaskmanagement.service.ProjectIntegrateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +19,19 @@ public class ProjectIntegrateServiceImpl {
         return projectIntegrateService.saveAll(projectIntegrateList);
     }
 
-    public List<ProjectIntegrate> getDevelopers(Project project){
-        return projectIntegrateService.findByProject(project);
+    public List<GetDevelopers> getDevelopers(Project project){
+        List<ProjectIntegrate> projectIntegrates = projectIntegrateService.findByProject(project);
+        List<GetDevelopers> getDevelopers = new ArrayList<>();
+        for (ProjectIntegrate pro: projectIntegrates) {
+            GetDevelopers dev = new GetDevelopers();
+            dev.setId(pro.getUser().getId());
+            dev.setName(pro.getUser().getName());
+            dev.setUsername(pro.getUser().getUsername());
+            dev.setEmail(pro.getUser().getEmail());
+            dev.setDesignation(pro.getUser().getDesignation());
+
+            getDevelopers.add(dev);
+        }
+        return getDevelopers;
     }
 }

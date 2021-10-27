@@ -1,5 +1,6 @@
 package com.saqib.projecttaskmanagement.controller;
 
+import com.saqib.projecttaskmanagement.formclasses.GetDevelopers;
 import com.saqib.projecttaskmanagement.model.Project;
 import com.saqib.projecttaskmanagement.model.ProjectIntegrate;
 import com.saqib.projecttaskmanagement.model.User;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +34,7 @@ public class ProjectIntegrateController {
     }
 
     @PostMapping(value = "/developers")
-    private List<ProjectIntegrate> getUsersOfProject(@RequestBody Project project){
+    private List<GetDevelopers> getUsersOfProject(@RequestBody Project project){
         return projectIntegrateServiceImpl.getDevelopers(project);
     }
 }
