@@ -1,6 +1,7 @@
 package com.saqib.projecttaskmanagement.controller;
 
 import com.saqib.projecttaskmanagement.formclasses.GetDevelopers;
+import com.saqib.projecttaskmanagement.formclasses.GetProjects;
 import com.saqib.projecttaskmanagement.model.Project;
 import com.saqib.projecttaskmanagement.model.ProjectIntegrate;
 import com.saqib.projecttaskmanagement.model.User;
@@ -36,5 +37,10 @@ public class ProjectIntegrateController {
     @PostMapping(value = "/developers")
     private List<GetDevelopers> getUsersOfProject(@RequestBody Project project){
         return projectIntegrateServiceImpl.getDevelopers(project);
+    }
+
+    @PostMapping("/projbydev/{id}")
+    private List<GetProjects> getProjectsByDev(@PathVariable("id") Long id){
+        return projectIntegrateServiceImpl.projectByDev(id);
     }
 }
