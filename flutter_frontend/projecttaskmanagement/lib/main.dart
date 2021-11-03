@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projecttaskmanagement/views/developers.dart';
 import 'package:projecttaskmanagement/views/home.dart';
+import 'package:projecttaskmanagement/views/login_page.dart';
 import 'package:projecttaskmanagement/views/projects.dart';
 
 void main() {
@@ -27,8 +28,8 @@ class MyApp extends StatelessWidget {
       ),
       
       routes: {
-        '/': (context) => HomePage(),
-        '/login': (context) => Scaffold(),
+        '/': (context) => Login(),
+        '/home': (context) => HomePage(),
         '/registration': (context) => Scaffold(),
         '/projects': (context) => Projects(),
         '/developers': (context) => Developers(),
