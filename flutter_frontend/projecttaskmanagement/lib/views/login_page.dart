@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:projecttaskmanagement/models/login_class.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  LoginModel loginModel = LoginModel("", "");
+  String errorText = "";
 
-  void validate() {
+// work from here to request post to backend
+  String validate() {
     if (_formkey.currentState.validate()) {
-      print("validate!");
+      print(loginModel.email);
+      print(loginModel.password);
+      setState(() {
+        errorText = "valid";
+      });
     }
   }
 
@@ -56,7 +69,7 @@ class Login extends StatelessWidget {
                       left: 40, right: 40, top: 10, bottom: 40),
                   child: TextFormField(
                     onChanged: (val) {
-                      print(val);
+                      loginModel.email = val;
                     },
                     validator: MultiValidator([
                       RequiredValidator(errorText: "Required *"),
@@ -74,22 +87,27 @@ class Login extends StatelessWidget {
                     obscureText: true,
                     enableSuggestions: false,
                     onChanged: (val) {
-                      print(val);
+                      loginModel.password = val;
                     },
                     validator: validPassword,
                     decoration: InputDecoration(labelText: "Password"),
                   ),
                 ),
 
+                Text(errorText),
+
                 // Login button
-                ElevatedButton.icon(
-                  icon: Icon(Icons.login),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blueGrey, // background
-                    onPrimary: Colors.white, // foreground
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ElevatedButton.icon(
+                    icon: Icon(Icons.login),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blueGrey, // background
+                      onPrimary: Colors.white, // foreground
+                    ),
+                    onPressed: validate,
+                    label: Text('Login'),
                   ),
-                  onPressed: validate,
-                  label: Text('Login'),
                 ),
 
                 SizedBox(height: 50),
