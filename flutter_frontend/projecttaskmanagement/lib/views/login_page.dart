@@ -4,6 +4,12 @@ import 'package:form_field_validator/form_field_validator.dart';
 class Login extends StatelessWidget {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
+  void validate() {
+    if (_formkey.currentState.validate()) {
+      print("validate!");
+    }
+  }
+
   String validPassword(value) {
     if (value.isEmpty) {
       return "*required";
@@ -82,13 +88,41 @@ class Login extends StatelessWidget {
                     primary: Colors.blueGrey, // background
                     onPrimary: Colors.white, // foreground
                   ),
-                  onPressed: () {
-                    if (_formkey.currentState.validate()) {
-                      print("validate!");
-                    }
-                  },
+                  onPressed: validate,
                   label: Text('Login'),
-                )
+                ),
+
+                SizedBox(height: 50),
+                // sign in or forgate password 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50.0),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Text("Sign in ?", style: TextStyle(color: Colors.blue)),
+                          onTap: (){
+                            print("clicked");
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 50.0),
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          child: Text("Forget password ?", style: TextStyle(color: Colors.blue)),
+                          onTap: (){
+                            print("Clicked");
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           )),
