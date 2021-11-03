@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:projecttaskmanagement/views/widgets/appbar.dart';
+import 'package:projecttaskmanagement/views/widgets/appbar/appbar.dart';
 
 class HomePage extends StatefulWidget {
 
