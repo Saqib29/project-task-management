@@ -2,18 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:projecttaskmanagement/views/widgets/appbar/appbar.dart';
 
-class HomePage extends StatefulWidget {
+class Projects extends StatefulWidget {
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _ProjectsState createState() => _ProjectsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ProjectsState extends State<Projects> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar.getAppBar(),
-      body: Center( child: Text("Home Page")),
+      body: Center(child: Text("Projects Page")),
     );
   }
 }

@@ -4,6 +4,8 @@ class BaseAppBar {
 
   static getAppBar() {
     return AppBar(
+      // automaticallyImplyLeading: false,
+      leading: Container(),
       titleSpacing: 50,
       centerTitle: false,
       toolbarHeight: 100,
