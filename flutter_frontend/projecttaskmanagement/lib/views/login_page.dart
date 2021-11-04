@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:projecttaskmanagement/api_service/login_api.dart';
 import 'package:projecttaskmanagement/models/login_class.dart';
 
 class Login extends StatefulWidget {
@@ -15,8 +16,8 @@ class _LoginState extends State<Login> {
 // work from here to request post to backend
   String validate() {
     if (_formkey.currentState.validate()) {
-      print(loginModel.email);
-      print(loginModel.password);
+      LoginApi.getUser(loginModel);
+            
       setState(() {
         errorText = "valid";
       });
@@ -116,11 +117,11 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 50.0),
+                      padding: const EdgeInsets.only(left: 45.0),
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          child: Text("Sign in ?", style: TextStyle(color: Colors.blue)),
+                          child: Text("Not Signed in ? ask the admin", style: TextStyle(color: Colors.blue)),
                           onTap: (){
                             print("clicked");
                           },
@@ -128,7 +129,7 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 50.0),
+                      padding: const EdgeInsets.only(right: 45.0),
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
