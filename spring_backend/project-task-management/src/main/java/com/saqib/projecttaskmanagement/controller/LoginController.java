@@ -14,6 +14,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @CrossOrigin
     @PostMapping
     private User login(@RequestBody Login login){
         User user = loginService.findByEmailAndPassword(login.getEmail(), login.getPassword());
