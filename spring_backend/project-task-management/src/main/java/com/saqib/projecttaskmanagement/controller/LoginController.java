@@ -1,9 +1,9 @@
 package com.saqib.projecttaskmanagement.controller;
 
 import com.saqib.projecttaskmanagement.formclasses.Login;
+import com.saqib.projecttaskmanagement.formclasses.ReturnRegisteredUser;
 import com.saqib.projecttaskmanagement.model.User;
 import com.saqib.projecttaskmanagement.service.LoginService;
-import com.saqib.projecttaskmanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +16,17 @@ public class LoginController {
 
     @CrossOrigin
     @PostMapping
-    private User login(@RequestBody Login login){
+    private ReturnRegisteredUser login(@RequestBody Login login){
+        ReturnRegisteredUser returnRegisteredUser = new ReturnRegisteredUser();
         User user = loginService.findByEmailAndPassword(login.getEmail(), login.getPassword());
-        return user;
+        returnRegisteredUser.setUser(user);
+        if (user == null){
+            returnRegisteredUser.setStatus(false);
+        }else{
+            returnRegisteredUser.setStatus(true);
+        }
+
+        return returnRegisteredUser;
     }
 
 }
