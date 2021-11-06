@@ -27,6 +27,7 @@ class LoginApi {
         Map user = json.decode(response.body);
         if(user['status']){
           recieveUser = RecieveUser.fromJson(user);
+          recieveUser.loggedIn = true;
         }else{
           recieveUser.status = false;
         }
@@ -38,8 +39,6 @@ class LoginApi {
       recieveUser.status = false;
       print(e.message);
     }
-
-    recieveUser.loggedIn = true;
 
     return recieveUser;
 
