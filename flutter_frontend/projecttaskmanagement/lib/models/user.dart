@@ -27,19 +27,19 @@ class User {
     String username;
     String designation;
     String email;
-    int password;
+    String password;
     String status;
     List<ProjectIntegrate> projectIntegrates;
 
     factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        name: json["name"],
-        username: json["username"],
-        designation: json["designation"],
-        email: json["email"],
-        password: json["password"],
-        status: json["status"],
-        projectIntegrates: List<ProjectIntegrate>.from(json["projectIntegrates"].map((x) => ProjectIntegrate.fromJson(x))),
+        id: json["id"] as int,
+        name: json["name"].toString(),
+        username: json["username"].toString(),
+        designation: json["designation"].toString(),
+        email: json["email"].toString(),
+        password: json["password"].toString(),
+        status: json["status"].toString(),
+        projectIntegrates: List<ProjectIntegrate>.from(json["projectIntegrates"].map((x) => ProjectIntegrate.fromJson(x))).toList(),
     );
 
     Map<String, dynamic> toJson() => {

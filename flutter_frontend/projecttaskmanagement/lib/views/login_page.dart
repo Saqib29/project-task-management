@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:projecttaskmanagement/api_service/login_api.dart';
 import 'package:projecttaskmanagement/models/login_class.dart';
+import 'package:projecttaskmanagement/models/recieve_user.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -10,17 +11,36 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
   LoginModel loginModel = LoginModel("", "");
+  RecieveUser recieveUser = RecieveUser();
   String errorText = "";
 
-// work from here to request post to backend
-  String validate() {
+  Future<void> getLoginedUser() async {
+    recieveUser = await LoginApi.getUser(loginModel);
+    // recieveUser = {
+    //   user: user,
+    //   status: true/false,
+    //   error: ""/"Error"
+    // }
+  }
+
+  void validate() async {
     if (_formkey.currentState.validate()) {
-      LoginApi.getUser(loginModel);
-            
+      await getLoginedUser();
+
       setState(() {
-        errorText = "valid";
+        if (recieveUser.error == 'Error') {
+          errorText = "Some problem occured, please try again later";
+        } else if (!recieveUser.status) {
+          errorText = "Envalid email or password";
+        }
       });
+
+      if (recieveUser.loggedIn) {
+        Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false,
+            arguments: {'user': recieveUser});
+      }
     }
   }
 
@@ -43,7 +63,7 @@ class _LoginState extends State<Login> {
         child: Container(
           // width: MediaQuery.of(context).size.width,
           width: 450,
-          height: 500,
+          height: 550,
           // color: Colors.white54,
           child: Center(
               child: Form(
@@ -95,7 +115,13 @@ class _LoginState extends State<Login> {
                   ),
                 ),
 
-                Text(errorText),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 2),
+                  child: Text(
+                    errorText,
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                ),
 
                 // Login button
                 Padding(
@@ -112,7 +138,7 @@ class _LoginState extends State<Login> {
                 ),
 
                 SizedBox(height: 50),
-                // sign in or forgate password 
+                // sign in or forgate password
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -121,8 +147,9 @@ class _LoginState extends State<Login> {
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          child: Text("Not Signed in ? ask the admin", style: TextStyle(color: Colors.blue)),
-                          onTap: (){
+                          child: Text("Not Signed in ? ask the admin",
+                              style: TextStyle(color: Colors.blue)),
+                          onTap: () {
                             print("clicked");
                           },
                         ),
@@ -133,8 +160,9 @@ class _LoginState extends State<Login> {
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          child: Text("Forget password ?", style: TextStyle(color: Colors.blue)),
-                          onTap: (){
+                          child: Text("Forget password ?",
+                              style: TextStyle(color: Colors.blue)),
+                          onTap: () {
                             print("Clicked");
                           },
                         ),

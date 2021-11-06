@@ -2,36 +2,49 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:projecttaskmanagement/models/login_class.dart';
+import 'package:projecttaskmanagement/models/recieve_user.dart';
 
-class LoginApi{
+class LoginApi {
+  static Future<RecieveUser> getUser(LoginModel login) async {
+    RecieveUser recieveUser = RecieveUser();
 
- static Future getUser(LoginModel login) async{
-   String url = "http://localhost:8081/login";
-   var request_body = {
-     'email': login.email, // "aminul@emial.com"
-     'password': login.password, // "1234"
-   };
 
-   var response = await http.post(
-     Uri.parse(url),
-     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
-      // "Access-Control-Allow-Credentials": "true", // Required for cookies, authorization headers with HTTPS
-      // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-      // "Access-Control-Allow-Methods": "POST, OPTIONS"
-     },
-     body: json.encode(request_body)
-   );
+    String url = "http://localhost:8081/login";
+    var request_body = {
+      'email': login.email, // "aminul@emial.com"
+      'password': login.password, // "1234"
+    };
 
-  //  print(json.decode(response.body)['name']);
-  Map user = json.decode(response.body);
-  // print(response.body != "" ? response.body : null);
-  // print(response.statusCode);
-  print(user);
+    try {
+      var response = await http.post(Uri.parse(url),
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+          body: json.encode(request_body));
 
-  // return type
-  // {"id":2,"name":"Saqib Aminul","username":"aminul","designation":"SENIOR_DEVELOPERS","email":"saqib@email.com","password":"123456","status":"ACTIVE","projectIntegrates":[]}
-  // or null means empty string.  
- } 
+      if (response.statusCode == 200){
+        Map user = json.decode(response.body);
+        if(user['status']){
+          recieveUser = RecieveUser.fromJson(user);
+        }else{
+          recieveUser.status = false;
+        }
+      }
+      
+
+    } catch (e) {
+      recieveUser.error = "Error";
+      recieveUser.status = false;
+      print(e.message);
+    }
+
+    recieveUser.loggedIn = true;
+
+    return recieveUser;
+
+    // return type
+    // {"id":2,"name":"Saqib Aminul","username":"aminul","designation":"SENIOR_DEVELOPERS","email":"saqib@email.com","password":"123456","status":"ACTIVE","projectIntegrates":[]}
+    // or null means empty string.
+  }
 }
