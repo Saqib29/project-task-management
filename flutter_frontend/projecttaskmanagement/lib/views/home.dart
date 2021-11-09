@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:projecttaskmanagement/models/recieve_user.dart';
 import 'package:projecttaskmanagement/views/widgets/appbar/appbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,9 +12,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final RecieveUser user = ModalRoute.of(context).settings.arguments as RecieveUser;
+        
     return Scaffold(
-      appBar: BaseAppBar.getAppBar(),
-      body: Center( child: Text("Home Page")),
+      appBar: BaseAppBar.getAppBar(user),
+      body: Center( child: Text(user.user.email)),
     );
   }
 }

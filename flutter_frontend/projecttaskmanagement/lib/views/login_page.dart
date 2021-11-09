@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
 
       if (recieveUser.loggedIn) {
         Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false,
-            arguments: {'user': recieveUser});
+            arguments: recieveUser);
       }
     }
   }

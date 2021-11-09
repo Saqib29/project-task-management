@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projecttaskmanagement/models/recieve_user.dart';
 
 class BaseAppBar {
 
-  static getAppBar() {
+
+  static getAppBar(RecieveUser user) {
     return AppBar(
       // automaticallyImplyLeading: false,
       leading: Container(),
@@ -50,7 +52,7 @@ class BaseAppBar {
 
             Row(
               children: [
-                Text("Saqib, Aminul Islam", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500)),
+                Text(user.user.username, style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500)),
 
                 PopupMenuButton(
                   icon: Icon(Icons.person),
