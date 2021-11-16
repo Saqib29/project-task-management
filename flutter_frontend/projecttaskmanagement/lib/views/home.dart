@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:projecttaskmanagement/models/recieve_user.dart';
+import 'package:projecttaskmanagement/views/widgets/appbar/admin_appbar.dart';
 import 'package:projecttaskmanagement/views/widgets/appbar/appbar.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     final RecieveUser user = ModalRoute.of(context).settings.arguments as RecieveUser;
         
     return Scaffold(
-      appBar: BaseAppBar.getAppBar(user),
+      appBar: user.user.designation == "ADMIN" ? AdminAppBar.getAppBar(user) : BaseAppBar.getAppBar(user),
       body: Center( child: Text(user.user.email)),
     );
   }
