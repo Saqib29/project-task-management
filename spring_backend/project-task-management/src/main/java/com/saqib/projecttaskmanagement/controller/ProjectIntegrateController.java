@@ -10,10 +10,8 @@ import com.saqib.projecttaskmanagement.service.service_implementation.ProjectInt
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/integrate")
@@ -42,5 +40,10 @@ public class ProjectIntegrateController {
     @PostMapping("/projbydev/{id}")
     private List<GetProjects> getProjectsByDev(@PathVariable("id") Long id){
         return projectIntegrateServiceImpl.projectByDev(id);
+    }
+
+    @PostMapping("/recentProjects/{id}")
+    private List<Project> recentProjects(@PathVariable("id") Long id){
+        return projectIntegrateServiceImpl.recentrojects(id);
     }
 }

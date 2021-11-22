@@ -9,6 +9,7 @@ import com.saqib.projecttaskmanagement.service.ProjectIntegrateService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,16 @@ public class ProjectIntegrateServiceImpl {
         }
 
         return getProjectsList;
+    }
+
+    public List<Project> recentrojects(Long id){
+
+        List<ProjectIntegrate> projects = projectIntegrateService.recentProjects(id, new Date());
+        List<Project> recentProject = new ArrayList<>();
+        for (ProjectIntegrate projectIntegrate : projects) {
+            recentProject.add(projectIntegrate.getProject());
+        }
+
+        return recentProject;
     }
 }
