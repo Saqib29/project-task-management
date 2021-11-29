@@ -17,7 +17,12 @@ class _HomePageState extends State<HomePage> {
         
     return Scaffold(
       appBar: user.user.designation == "ADMIN" ? AdminAppBar.getAppBar(user) : BaseAppBar.getAppBar(user),
-      body: Center( child: Text(user.user.email)),
+      body: Container(
+        padding: EdgeInsets.all(35),
+        color: Colors.yellow,
+        width: 100,
+        height: 100,
+      ),
     );
   }
 }
